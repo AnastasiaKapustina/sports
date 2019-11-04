@@ -1,0 +1,49 @@
+﻿@model Sports.ViewModels.EventViewModel
+
+@{
+    ViewData["Title"] = "Подробности о событии";
+}
+
+<h2>Подробности о событии</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.GameId)
+        </dt>
+        <dd>
+            <a asp-controller="Games" asp-action="Details" asp-route-Id="@Model.GameId">Просмотреть игру</a>
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player1Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player1Name)
+        </dd>
+        @if (Model.IsTwoPlayer)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Player2Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Player2Name)
+            </dd>
+        }
+        <dt>
+            @Html.DisplayNameFor(model => model.EventTypeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventTypeName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Time)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Time)'
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редактировать</a>
+</div>

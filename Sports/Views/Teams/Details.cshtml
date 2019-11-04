@@ -1,0 +1,35 @@
+﻿@model Sports.ViewModels.TeamViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Подробности о команде @Model.Name</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Играет в
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SportName)
+        </dd>
+    </dl>
+    <dl class="dl-horizontal">
+        <dt>
+            Состав команды
+        </dt>
+        <dd>
+            @foreach (var kvp in Model.Players)
+            {
+                @kvp.Value <text> |</text> <a asp-controller="Players" asp-action="Edit" asp-route-id="@kvp.Key">Редактировать</a> <br />
+            }
+            <a asp-controller="Players" asp-action="Create" asp-route-teamId="@Model.Id">Добавить игрока</a>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редактировать команду</a> |
+    <a asp-action="Index" asp-route-sportId="@Model.SportId">Вернуться к списку</a>
+</div>

@@ -1,0 +1,56 @@
+﻿@model Sports.ViewModels.GameViewModel
+
+@{
+    ViewData["Title"] = "Редактирование игры";
+}
+
+<h2>Редактирование игры в @(((Sports.Models.Sport)ViewData["sport"]).Name)</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-sportId="@(((Sports.Models.Sport)ViewData["sport"]).Id)">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="SportId" />
+            <div class="form-group">
+                <label asp-for="Team1Id" class="control-label"></label>
+                <select asp-for="Team1Id" class="form-control" asp-items="ViewBag.Team1Id"></select>
+                <span asp-validation-for="Team1Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Team2Id" class="control-label"></label>
+                <select asp-for="Team2Id" class="form-control" asp-items="ViewBag.Team2Id"></select>
+                <span asp-validation-for="Team2Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" type="date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить изменения" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Удалить" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index" asp-route-sportId="@(((Sports.Models.Sport)ViewData["sport"]).Id)">Вернуться к списку</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

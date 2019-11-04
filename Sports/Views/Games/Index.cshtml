@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Sports.Models.Game>
+
+@{
+    ViewData["Title"] = "Список игр, сыгранных в " + ((Sport)ViewData["sport"]).Name;
+}
+
+<h2>Список игр, сыгранных в @(((Sport)ViewData["sport"]).Name)</h2>
+
+<p>
+    <a asp-action="Create" asp-route-sportId="@(((Sport)ViewData["sport"]).Id)">Добавить ещё</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sport)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sport.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team1.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team2.Name)
+            </td>
+            <td>
+                @String.Format("{0:MM.dd.yy}", item.Date)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Подробнее об игре</a> |
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Sports.ViewModels.FrequencyStatistics>
+
+@{
+    ViewData["Title"] = "Самые интересные виды спорта";
+}
+
+<h2>Самые интересные виды спорта</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var item in Model)
+        {
+        <dt>
+            @item.Frequency
+        </dt>
+        <dd>
+            @item.Name
+            - <a asp-action="SportStatistics" asp-route-sportId="@item.Id">статистика вида спорта</a>
+        </dd>
+        }
+        @if (Model.Count() == 0)
+        {
+        <dt>
+            Нет данных.
+        </dt>
+        <dd>
+            Нам не из чего составить эту статистику.
+        </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Вернуться</a>
+</div>

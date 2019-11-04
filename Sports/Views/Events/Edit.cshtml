@@ -1,0 +1,76 @@
+﻿@model Sports.ViewModels.EventViewModel
+
+@{
+    ViewData["Title"] = "Редактирование события";
+}
+
+<h2>Редактирование события</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-route-gameId="@(((Sports.Models.Game)ViewData["game"]).Id)">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="GameId" />
+            <input type="hidden" asp-for="IsTwoPlayer" id="is-two-player" />
+            <div class="form-group">
+                <label asp-for="EventTypeId" class="control-label"></label>
+                <select asp-for="EventTypeId" id="event-type" class="form-control" asp-items="ViewBag.EventType"
+                        onchange="checkDualPlayer(this.options[this.selectedIndex].innerHTML)"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Player1Id" class="control-label"></label>
+                <select asp-for="Player1Id" class="form-control" asp-items="ViewBag.Players"></select>
+            </div>
+            <div class="form-group" id="second-player">
+                <label asp-for="Player2Id" class="control-label"></label>
+                <select asp-for="Player2Id" class="form-control" asp-items="ViewBag.Players"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Time" class="control-label"></label>
+                <input asp-for="Time" type="number" class="form-control" />
+                <span asp-validation-for="Time" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить изменения" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Delete">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Удалить" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-contoller="Games" asp-action="Details" asp-route-gameId="@((Sports.Models.Game)ViewData["game"]).Id">Вернуться к игре</a>
+</div>
+
+<script>
+    var dualPlayers = @Html.Raw(@ViewData["DualPlayer"]);
+    function checkDualPlayer(eventTypeName) {
+        if (dualPlayers.includes(eventTypeName)) {
+            document.getElementById("second-player").style.display = "block";
+            document.getElementById("is-two-player").value = "true";
+        }
+        else {
+            document.getElementById("second-player").style.display = "none";
+            document.getElementById("is-two-player").value = "false";
+        }
+    }
+
+    checkDualPlayer(document.getElementById("event-type").options[document.getElementById("event-type").selectedIndex].innerHTML);
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

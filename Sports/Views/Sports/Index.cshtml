@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Sports.Models.Sport>
+
+@{
+    ViewData["Title"] = "Список видов спорта";
+}
+
+<h2>Список видов спорта</h2>
+
+<p>
+    <a asp-action="Create">Создать</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-controller="Teams" asp-action="Index" asp-route-sportId="@item.Id">Команды</a> |
+                <a asp-controller="EventTypes" asp-action="Index" asp-route-sportId="@item.Id">Типы событий</a> |
+                <a asp-controller="Games" asp-action="Index" asp-route-sportId="@item.Id">Игры</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

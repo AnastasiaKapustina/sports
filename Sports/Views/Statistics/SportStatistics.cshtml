@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Sports.ViewModels.Statistics>
+
+@{
+    ViewData["Title"] = "Статистика вида спорта";
+}
+
+<h2>Статистика вида спорта @ViewData["Name"]</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        @foreach (var eventType in Model)
+        {
+            <dt>
+                @eventType.Name
+            </dt>
+            <dd>
+                @eventType.Count
+            </dd>
+        }
+        @if (Model.Count() == 0)
+        {
+            <dt>
+                Скучный вид спорта.
+            </dt>
+            <dd>
+                Ни в одной игре ничего ни произошло.
+            </dd>
+        }
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Вернуться</a>
+</div>

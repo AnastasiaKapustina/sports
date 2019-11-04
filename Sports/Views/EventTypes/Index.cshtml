@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Sports.Models.EventType>
+
+@{
+    ViewData["Title"] = ViewData["sportName"] + ": типы событий";
+}
+
+<h2>@ViewData["sportName"]: типы событий</h2>
+
+<p>
+    <a asp-action="Create" asp-route-sportId="@ViewData["sportId"]">Добавить</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDualPlayer)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsDualPlayer)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
